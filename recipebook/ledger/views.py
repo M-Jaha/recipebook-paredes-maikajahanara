@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Recipe
 
-
 def recipe_list(request):
-    recipes = Recipe.objects.all()
+    recipes = Recipe.objects.all().order_by('-created_on')
     return render(request, 'ledger/recipe_list.html', {'recipes': recipes})
 
-
+@login_required
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     return render(request, 'ledger/recipe_detail.html', {'recipe': recipe})
