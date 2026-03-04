@@ -33,6 +33,8 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'ledger:recipe-list'
 LOGOUT_REDIRECT_URL = 'login'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'recipebook.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

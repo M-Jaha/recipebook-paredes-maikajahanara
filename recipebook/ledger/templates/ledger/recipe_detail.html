@@ -2,14 +2,24 @@
 
 {% block title %}{{ recipe.name }}{% endblock %}
 
+{% block page_heading %}{{ recipe.name }}{% endblock %}
+
 {% block content %}
-<h2>{{ recipe.name }}</h2>
-
-<ul>
+<div>
+    <p><strong>Author:</strong> {{ recipe.author.name }}</p>
+    <p><strong>Created:</strong> {{ recipe.created_on|date:"F d, Y g:i A" }}</p>
+    <p><strong>Last Updated:</strong> {{ recipe.updated_on|date:"F d, Y g:i A" }}</p>
+    
+    <h3>Ingredients</h3>
+    <ul>
     {% for ingredient in recipe.ingredients.all %}
-        <li> {{ ingredient.quantity }} - {{ ingredient.ingredient.name }} </li>
+        <li>{{ ingredient.quantity }} - {{ ingredient.ingredient.name }}</li>
     {% endfor %}
-</ul>
-
-<a href="{% url 'recipe_list' %}">Back to Recipes</a>
+    </ul>
+    
+    <h3>About the Author</h3>
+    <p>{{ recipe.author.short_bio }}</p>
+    
+    <p><a href="{% url 'ledger:recipe-list' %}">Back to Recipes</a></p>
+</div>
 {% endblock %}
