@@ -28,8 +28,8 @@ class Recipe(models.Model):
         Profile,
         on_delete=models.CASCADE,
         related_name='recipes',
-        null=True,  # Add this
-        blank=True  # Add this too
+        null=True,
+        blank=True
     )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -56,3 +56,16 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return f"{self.quantity} of {self.ingredient.name} in {self.recipe.name}"
+
+
+class RecipeImage(models.Model):
+    image = models.ImageField(upload_to='recipe_images/', blank=False)
+    description = models.CharField(max_length=255)
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+
+    def __str__(self):
+        return f"Image for {self.recipe.name}: {self.description}"
